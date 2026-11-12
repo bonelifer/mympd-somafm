@@ -6,6 +6,18 @@ SomaFM's published MP3 playlist and plays the resulting stream in MPD.
 
 ## Setup
 
+GitHub Actions publishes the bridge image to GitHub Container Registry.
+Pull it with:
+
+```bash
+docker pull ghcr.io/bonelifer/mympd-somafm:latest
+```
+
+Use the published image with the same environment, volumes, and command as
+the local Compose build by setting `image: ghcr.io/bonelifer/mympd-somafm:latest`
+in place of `build: .`.
+
+
 Start the bridge with `docker compose up -d --build` or run
 `python3 bridge.py`. The default listener is `127.0.0.1:18768`, for myMPD
 using host networking. Enable Lua scripting in myMPD and install the picker:

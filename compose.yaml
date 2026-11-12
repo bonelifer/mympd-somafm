@@ -1,0 +1,9 @@
+services:
+  somafm:
+    build: .
+    network_mode: host
+    environment:
+      MYMPD_THUMBS_DIR: /thumbs
+    volumes:
+      - ${MYMPD_THUMBS_DIR:-./artwork}:/thumbs
+    restart: unless-stopped

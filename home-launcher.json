@@ -1,0 +1,19 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "MYMPD_API_HOME_ICON_SAVE",
+  "params": {
+    "replace": false,
+    "oldpos": 0,
+    "name": "SomaFM",
+    "ligature": "",
+    "bgcolor": "#12576d",
+    "color": "#ffffff",
+    "image": "somafm-papirus.png",
+    "cmd": "execScriptFromOptions",
+    "options": [
+      "SomaFM",
+      ""
+    ]
+  }
+}

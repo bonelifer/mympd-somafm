@@ -30,10 +30,14 @@ The installer copies the bundled Home icon to `pics/thumbs/` and creates
 or updates the matching tile. Omit `--workdir` to install only the Lua script.
 If API protection is on, pass your session as `MYMPD_SESSION`.
 
-For the Playback page button, copy `assets/somafm.png` and
-`somafm-playback.js` to myMPD's `pics/` directory. Append the contents of
+For the Playback page button, copy `somafm-playback.js` to myMPD's
+`pics/` directory. The button uses the Home tile icon in `pics/thumbs/`.
+Append the contents of
 `somafm-loader.js` to `config/custom_js` once. Restart myMPD and reload
 the browser.
+
+SomaFM album names on Playback require myMPD's HTTP script endpoint. The
+picker matches the playing artist and title against the recent station feed.
 
 ## Playback artwork
 

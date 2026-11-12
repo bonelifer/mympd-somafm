@@ -75,17 +75,30 @@ def resolve(station: str) -> dict:
     raise ValueError("No SomaFM stream in playlist")
 
 
+def recent_tracks(station: str) -> list[dict]:
+    """Return the artist, title, and album from a station's recent feed."""
+    with urlopen(f"https://api.somafm.com/songs/{station}.json",
+                 timeout=8) as response:
+        feed = json.load(response)
+    return [{key: song.get(key) or "" for key in ("artist", "title", "album")}
+            for song in feed["songs"]]
+
+
 class Handler(BaseHTTPRequestHandler):
     """Serve the station list on the bridge's private listener."""
 
     def do_GET(self) -> None:
         """Return the current lineup or an upstream error."""
         station = re.fullmatch(r"/stations/([a-zA-Z0-9-]+)", self.path)
-        if self.path != "/stations" and not station:
+        recent = re.fullmatch(r"/recent/([a-zA-Z0-9-]{1,64})", self.path)
+        if self.path != "/stations" and not station and not recent:
             self.send_error(404)
             return
         try:
-            data = stations() if not station else resolve(station[1])
+            if recent:
+                data = recent_tracks(recent[1])
+            else:
+                data = stations() if not station else resolve(station[1])
             if station and os.environ.get("MYMPD_THUMBS_DIR"):
                 try:
                     image = next((item["image"] for item in stations()

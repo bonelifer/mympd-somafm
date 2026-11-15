@@ -1,6 +1,6 @@
 services:
   somafm:
-    build: .
+    image: ghcr.io/bonelifer/mympd-somafm:latest
     network_mode: host
     environment:
       MYMPD_THUMBS_DIR: /thumbs
